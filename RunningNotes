@@ -1,0 +1,970 @@
+AWS + DevOPs
+
+pre-requests:
+.............
+you should be talk 
+Running notes
+
+support Engineer
+DevOPs Engineer
+system Engineer
+cloud Engineer
+Site reliabillity Engineer
+infra admin
+
+
+AWS: Amazon Web Services
+
+
+Infra Structure:
+................
+Data center
+Storage components (hard disks)
+networking components DNS
+computing components (cpu ,ram.....)
+
+DNS: Domain name server
+
+IP: Internet protocal
+
+
+http: hyper text transfer protocal 80
+https: hyper text transfer protocal secure 443
+
+https://www.facebook.com/
+
+http://prideted.com/
+
+
+static ip
+Dynamic ip
+
+ipv4: internet protocal version 4
+
+ipv6: internet protocal version 6
+
+public ip
+
+private ip
+
+10, 192,172
+
+10.1.5.0
+
+59
+
+
+on premises: our own data center
+
+
+
+
+projects----->powerstations---->substations---->transferormers---->poles---->house
+
+
+cloud:
+......
+
+aws: Amazon web services
+azure
+gcp
+ibm
+
+reagions----->az
+
+active---active
+active -- passive
+
+
+disadvantages of on prem:
+
+infra cost + upgradation + maintainance cost
+
+in cloud pay only for service
+
+
+types of clouds:
+..............
+
+private cloud: resources can't be shared
+
+public cloud: resources can be shared 
+
+hybrid cloud: it is a combination of private and public code
+
+
+
+cloud service models:
+.....................
+iaas: infra as a service
+paas: platfrom as a service
+saas: software as service
+
+on-prem:
+.......
+networking componets--->computing components---->storage componets----> os -----> java----> 
+
+
+
+ec2: Elastic compute cloud
+
+ami: amazon machine image
+
+
+
+amazon linux: ec2-user
+centos: centos
+redhat linux: ec2-user
+ubuntu: ubuntu
+windows: Administrator
+
+linux: ssh
+port: 22
+
+
+gitbash,putty, mobaXterm
+
+
+
+ssh -i <keyname> <user>@ipaddress
+
+ssh -i feb.pem ec2-user@15.206.122.227
+
+
+
+hostnamectl set-hostname <name>
+
+directory creation: mkdir
+
+file creation: touch, echo, vi 
+
+
+ls -ltrah
+
+
+
+drwxrwxr-x 2 ec2-user ec2-user 40 Feb 15 02:54 demo
+
+-rw-rw-r-- 1 ec2-user ec2-user 43 Feb 15 02:46 file1.txt
+
+d rwx rwx r-x
+
+
+r: read   4
+w: write  2
+x: exicute 1
+
+sudo useradd kiran
+sudo passwd kiran
+
+/
+
+d rwx --- --- 4 ec2-user ec2-user 124 Feb 15 02:54 ec2-user
+
+root    ALL=(ALL)       ALL
+kiran    ALL=(ALL)       ALL
+
+
+
+sudo vi /etc/ssh/sshd_config
+
+:63 #password authandication NO,
+:61 password authandication yes
+
+sudo sysemctl restart sshd
+
+windows: RDP ( Remote desktop)
+port no: 3389
+
+Apache--->80.....>http
+
+
+Install Apache:
+...............
+sudo yum install htppd -y
+sudo systemctl start httpd
+
+
+vpc: virtual private cloud
+
+cidr: classless inter-domain routing 
+subnets
+gateways
+
+
+50.8.4.1 
+
+2^32= 4.......
+
+2^32-n
+
+10,192,172
+
+2^32-24
+
+2^32-20
+
+
+2^32-16
+2^16
+
+
+10.0.0.0/16
+
+
+PUBLIC SUBNET
+PRIVATE SUBNET
+
+
+az1
+az2
+az3
+
+
+256
+
+
+2^32-30
+
+2^32-28
+
+2^4
+
+
+2^32-26
+2^6
+
+2^32-24
+
+2^8 =256
+
+
+
+
+10.0.0.0 ----256
+
+10.0.0.1
+10.0.0.2
+10.0.0.3
+
+
+
+10.0.1.0/24
+
+
+10.0.0.0/24 
+10.0.1.0/24
+
+
+
+10.0.0.0/28
+
+10.0.0.0
+10.0.0.1
+10.0.0.2
+
+15
+
+
+10.0.0.16/28
+10.0.0.16
+10.0.0.17
+10.0.0.32/28
+
+
+How to block a website in windows
+
+C:\Windows\System32\drivers\etc/hosts
+
+
+sudo hostnamectl set-hostname <Name>
+
+- rw- rw- r--
+   6   6   4
+   
+- rw- r-- r--
+   6  4   4
+   
+d rwx rwx r-x : if  you create with the user  
+   7   7   5
+   
+d rwx r-x r-x : if you create a directory with the sudo 
+   7    5  5
+   
+   
+   400
+   
+ Lab1: launch one windows machine in your own vpc pub subnet
+  launch one linux machine in your own vpc private subnet
+try to connect private instance throuch windows machine
+
+
+  
+IAM: identity and Access Management
+....................................
+
+create a user 
+provide admin access to that user
+login with IAM user 
+
+
+1 linux: 8GB 
+
+100GB:  
+
+EBS: Elastic block storage
+
+SSD 256 gb 
+HDD 1tb 
+
+how to change a ownership permissions to a file/directory in linux
+
+chown
+chmod
+usermod 
+
+ec2 launching methods:
+......................
+On-Demand-----> 100 
+Reserved-----> 30
+spot ---> 3
+
+
+50 instances
+
+10 ,20,20 
+
+100000
+
+$0.05
+$0.10
+
+
+storage types:
+...............
+block storage
+filesystem storage
+object storage
+
+
+
+Step 1: Now, login to your ec2 instance and list the available disks using the following command.
+
+ lsblk
+The above command will list the disk you attached to your instance.
+
+Step 2: Check if the volume has any data using the following command.
+
+sudo file -s /dev/xvdf
+If the above command output shows “/dev/xvdf: data“, it means your volume is empty.
+
+Step 3: Format the volume to the ext4 filesystem using the following command.
+
+sudo mkfs -t ext4 /dev/xvdf
+Alternatively, you can also use the xfs format. You have to use either ext4 or xfs.
+
+ sudo mkfs -t xfs /dev/xvdf
+Step 4: Create a directory of your choice to mount our new ext4 volume. I am using the name “newvolume“. You can name it something meaningful to you.
+
+sudo mkdir /newvolume
+Step 5: Mount the volume to “newvolume” directory using the following command.
+
+sudo mount /dev/xvdf /newvolume/
+Step 6: cd into newvolume directory and check the disk space to validate the volume mount.
+
+cd /newvolume
+df -h .
+The above command should show the free space in the newvolume directory.
+
+To unmount the volume, use the unmount command as shown below..
+
+sudo umount /dev/xvdf
+Automount EBS Volume on Reboot
+By default on every reboot, the EBS volumes other than the root volume will get unmounted. To enable automount, you need to make an entry in the /etc/fstab file.
+
+Follow the steps given below to automount the EBS volume to the ec2 instance.
+
+Step 1: Back up the /etc/fstab file.
+
+sudo cp /etc/fstab /etc/fstab.bak
+Step 2: Open /etc/fstab file and make an entry in the following format.
+
+device_name mount_point file_system_type fs_mntops fs_freq fs_passno
+For example,
+
+/dev/xvdf       /newvolume   ext4    defaults,nofail        0       0
+Step 3: Execute the following command to check if the fstab file has any errors.
+
+sudo mount -a
+
+
+
+
+
+
+block level storage
+file storage
+object storage
+
+
+EBS: Elastic block storage
+
+types of EBS vloumes
+
+SSD: Solid state drive 
+
+HDD: Hard disk drive 
+
+
+
+
+General purpose SSD 
+provisioned iops SSD
+throughput optimized HDD 
+cold HDD
+magnatic volumes
+
+gp2: 1gb 16gb
+
+100 16000iops
+
+250 m/s
+
+
+4GB 16tb
+
+100 to 64000iops
+
+
+500gb 16tb
+ 500iops
+ 
+ 500 mb/s
+ 
+ 
+ 250 iops
+ 250mb/s
+ 
+
+EBS volumes are zone based
+
+S3: sample storage service
+
+s3 is an global base service
+
+buckets: 5tb
+
+storage classess in S3
+.....................
+
+standard ----- 10
+infrequent ------ 03
+glassier ---------- 25 ps
+
+
+
+
+standard
+ intelliegent-Tiering
+ standard-1A
+ one zone-1A
+ Glassier
+ glassier Deep Archive
+ 
+ 
+ how to access aws services from local:
+ 
+ using access key and secret key
+ 
+ 
+crontab:
+.......
+
+*  *  *   *   *
+
+* : Minutes (0-59)
+* : hours (0-23)
+*: day of the month (1-31)
+*: Month of the year (1-12)
+*: Day of the week (0-7) 0,7 are sunday
+
+
+0  1 10 * * 
+
+15 0 * * * <path of your script>
+
+Apache
+
+Nginx
+
+
+http 
+
+
+
+index.html /var/www/html/
+
+
+
+classic Load Balancer Layer4 
+Application Load Balancer
+Network Load Balancer
+
+
+osi models:
+...........
+Physical Layer
+Data Link Layer
+Network Layer
+Transport Layer
+session Layer
+presentation Layer
+Application Layer
+
+
+
+Lab: Launch 2 Linux instances in diff avaliballity zones, in private subnet
+
+install apache in 2 instances and deploy index.html
+
+
+
+.com
+.in
+.co.in
+
+
+godaddy
+bluehost
+route53
+
+
+www.learndevops.com
+
+
+ns-897.awsdns-48.net.
+ns-1200.awsdns-22.org.
+ns-230.awsdns-28.com.
+ns-1772.awsdns-29.co.uk
+
+
+
+demo.learndevops.cf
+
+www.learndevops.cf
+
+nslookup <fqdn>
+
+
+
+ssl: secure socket layer
+
+
+amazon.in
+https://amazon.in
+
+
+30%
+
+Autoscaling
+...........
+
+Horizontal autoscaling
+vertical autoscaling
+
+
+
+Routing policies:
+................
+sample routing
+waighted
+latency
+geolocation
+
+
+DevOps:
+......
+
+sdlc models: software developement life cycle
+
+
+Requirements Analysis
+system design
+implementation
+testing
+deploy
+maintainance
+
+
+waterfall model
+V-shaped model
+Incremental model
+Agil method
+
+
+scm (git)
+github
+jenkins (Ant, maven,gradle, npm)
+tomcat
+sonarqube
+configuration management (Ansible)
+Docker
+
+scm: soure code management system
+................................
+git
+
+what is git
+svn vs git
+git archaticture
+installation of git in windows
+create a github account
+create a repo in github
+create a git project in local
+
+
+git: Distributed version control system
+
+
+git is an cli tool where as github is an central repo to store and share the code
+
+
+
+
+git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+add
+commit
+pull 
+push
+
+what is conflict
+how to resolve git conflict?
+how to undo the changes in working area
+
+
+what is git branch?
+when we use branch?
+how to create a branch in local
+how to create a branch in remote
+how to switch from one to another branch
+how to merege the code from one branch to another branch
+how to push the code to specific branch
+how to  list the branches
+how to delete the branch in local and remote
+
+how to undo the working directory changes? git restore <file name>
+how to undo the all files in working directory changes? git restore .
+how to undo  the local commit changes? git reset
+what is git reset?
+how many ways we can do rest? --------> soft hard mixed
+how to do changes in remote commit? git revert
+
+soft reset hard reset mixed reset
+
+
+what is git tags?
+when we use git tags?
+how many types of git tags?
+what is lightweight git tag? how to create light weight tag
+what is anotated tag?how to create anotated tag
+how to check all commits in local?
+how to create a tag for older commit?
+how to list all the tags?
+hos to delete local and remote tags?
+
+
+
+Jenkins:
+........
+CI:Continious Integration
+CD: Continious Deployment & continious Delivery
+
+
+clonethe code + Build the code + test the code 
+
+Pre-Request for Jenkins:
+java
+
+
+sudo yum install java-11-openjdk-devel.x86_64
+   10  java -version
+   11  wget
+   12  sudo yum install wget -y
+   13  sudo wget -O /etc/yum.repos.d/jenkins.repo     https://pkg.jenkins.io/redhat-stable/jenkins.repo
+   14  sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+   15  sudo yum upgrade -y
+   16  sudo yum install jenkins -y
+   17  sudo systemctl start jenkins
+   18  sudo systemctl enable jenkins
+   19  sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+   
+   
+   
+   
+   
+   Default jenkins home directory:
+   ..............................
+   /var/lib/jenkins/
+   
+   
+what is build tools?
+
+Ant, maven, Gradle, NPM, msi
+what is maven
+diff between ant and maven
+maven life cycle
+create a maven project in local
+
+maven: 
+
+pom.xml
+
+Ant: 
+Build.xml
+
+
+
+maven lifecycle:
+................
+
+validate
+compile
+test
+package
+verify
+install
+deploy
+
+
+
+pom.xml
+
+war
+ear
+jar
+
+
+mvn verify
+
+mvn archetype:generate -DgroupId=com.learndevops.app -DartifactId=myapp -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
+
+
+
+java
+
+bashrc
+bash_profile
+
+ /opt/maven/bin/
+ 
+ M2_HOME=/opt/maven
+M2=$M2_HOME/bin
+
+PATH=$PATH:$M2_HOME:$M2:$HOME/bin
+export PATH
+
+
+war: web archavive
+
+tomcat: 
+
+pre-request for tomcat:
+.......................
+java
+methods to install tomcat:
+.........................
+yum install
+
+Binary
+
+
+jenkins
+maven
+tomcat
+
+copy files from one server to another server
+
+SCP
+
+Freestyle job
+Pipeline job
+
+
+
+#! /bin/bash
+scp -i <key> -r /home/ec2-user/hello-world-war/target/helloworld-2.0.8.war ec2-user@ip:/opt/tomcat/webapps
+#login to tomcat
+cd /opt/tomcat/bin
+./shutdown.sh
+./startup.sh
+
+
+main config file for tomcat:
+server.xml
+
+pollscm
+build periodically
+webhooks
+
+sudo su - jenkins -s /bin/bash
+
+
+
+
+* * * * *
+
+27 2 * * *
+
+sudo rpm -qa | grep -i java
+
+pre-request for Nexus installation:
+...................................
+java
+
+
+
+task:
+.....
+Take 2 (t2.medium,t2.micro) linux servers
+
+t2.medium install and configure nexus
+t2.micro install and configure tomcat
+
+create a job with your name(java project) push the artifact to your nexus repo
+deploy the application to your tomcat server
+
+
+pipelines:
+...........
+scripted pipelines
+Declerative pipelines
+
+ 
+
+node{
+
+
+pipeline{
+
+
+
+
+checkout the code
+build the code
+deploy the code
+
+
+node {
+    def mvnHome
+    stage('Preparation') { // for display purposes
+        // Get some code from a GitHub repository
+        git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+        // Get the Maven tool.
+        // ** NOTE: This 'M3' Maven tool must be configured
+        // **       in the global configuration.
+        mvnHome = tool 'M3'
+    }
+    stage('Build') {
+        // Run the maven build
+        withEnv(["MVN_HOME=$mvnHome"]) {
+            if (isUnix()) {
+                sh '"$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean package'
+            } else {
+                bat(/"%MVN_HOME%\bin\mvn" -Dmaven.test.failure.ignore clean package/)
+            }
+        }
+    }
+    stage('Results') {
+        junit '**/target/surefire-reports/TEST-*.xml'
+        archiveArtifacts 'target/*.jar'
+    }
+}
+
+
+
+
+pipeline{
+agent{
+stages{
+stage("checkout"){
+steps{
+//logic
+}
+}
+stage("build"){
+steps{
+sh 'mvn clean package'
+}
+}
+
+
+
+git clone <url>
+git checkout <branch>
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage('checkout'){
+            steps{
+               checkout scmGit(branches: [
+			   [
+			   name: 
+			   '*/dev'
+			   ]
+			   ], 
+			   extensions: [], 
+			   userRemoteConfigs: 
+			   [
+			   [
+			   credentialsId: 'Jenkins_Github',
+			   url: 'https://github.com/Bhanukiran213/hello-world-war.git'
+			   ]
+			   ]
+			   ) 
+            }
+        }
+        
+    }
+
+
+pipeline{
+agent any{
+stages{
+stage('checkout'){
+steps{
+//logtic
+}
+}
+stage('build'){
+steps{
+//logic
+}
+}
+
+Ansible:
+ configuration management tool
+ ansible will work on ssh protocal
+ ansible is an agentless (pushed based)
+
+to install yum packages
+/etc/yum.repos.d/
+
+install ansible on linux:
+........................
+
+enable epel: (extra package for enterprise linux)
+
+
+main config file for ansible
+ansible.cfg
+
+/etc/ansible/ansible.cfg
