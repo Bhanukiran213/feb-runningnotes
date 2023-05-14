@@ -955,7 +955,7 @@ Ansible:
  ansible will work on ssh protocal
  ansible is an agentless (pushed based)
 
-to install yum packages
+
 /etc/yum.repos.d/
 
 install ansible on linux:
@@ -964,7 +964,55 @@ install ansible on linux:
 enable epel: (extra package for enterprise linux)
 
 
-main config file for ansible
+
 ansible.cfg
 
 /etc/ansible/ansible.cfg
+
+through paswordless setup
+throuch username and password
+ssh-keys
+
+inventroy file :
+..............
+static inventroy
+Dinamic inventroy
+
+modules:
+........
+ping
+shell
+command
+file
+user
+lineinfile
+yum
+
+
+ansible all -m shell -a "ls -ltrah /opt"
+
+ansible all -m shell -a "mkdir -p /opt/DevOps"
+
+ansible all -m shell -a "mkdir -p /opt/DevOps" -b
+
+ansible all -l webservers -a "cd /opt/;mkdir learndevops" --become
+mkdir -p /opt/DevOps
+
+anisible all -m shell -a 'cd /opt/;echo "this is for testing" >> test.txt'
+
+ansible all -i myinventory_file -l appservers -m shell -a "chown -R ec2-user:ec2-user /opt/DevOps" -b
+
+ansible all -i myinventory_file -l webservers -m command -a "chown -R centos:centos /opt/DevOps" -b
+
+ansible all -i myinventory_file -l appservers -m shell -a "cat /opt/DevOps/file2.txt | grep -i test"
+
+
+ansible all -i myinventory_file -l appservers -m command -a "cat /opt/DevOps/file2.txt | grep -i test"
+
+
+file:
+
+ansible all -i myinventory_file -l appservers -m file -a "dest=/opt/DevOps/file3.txt state:touch mode=777" 
+
+ansible all -i myinventory_file -l appservers -m file -a "dest=/opt/kiran.txt state=touch mode=655 owner=ec2-user group=ec2-user" -b
+ansible all -i myinventory_file -l appservers -m copy -a "src=/home/centos/copyfile.txt dest=/opt/Bhanu/"
