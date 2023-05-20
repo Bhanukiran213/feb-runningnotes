@@ -1015,4 +1015,55 @@ file:
 ansible all -i myinventory_file -l appservers -m file -a "dest=/opt/DevOps/file3.txt state:touch mode=777" 
 
 ansible all -i myinventory_file -l appservers -m file -a "dest=/opt/kiran.txt state=touch mode=655 owner=ec2-user group=ec2-user" -b
-ansible all -i myinventory_file -l appservers -m copy -a "src=/home/centos/copyfile.txt dest=/opt/Bhanu/"
+nsible all -i myinventory_file -l appservers -m copy -a "src=/home/centos/copyfile.txt dest=/opt/Bhanu/"
+
+
+
+
+
+dnf install httpd -y
+systemctl start httpd
+systemctl enable httpd
+
+
+   
+   
+ansible all -i myinventory_file -l appservers -m dnf -a "name=httpd state=absent"
+
+ansible all -i myinventory_file -l appservers -m service -a"name=httpd state=stop"
+
+
+
+
+download from internet and install the software
+
+yum install java-11-openjdk-devel.x86_64 -y
+
+java-11-openjdk-devel.x86_64
+
+
+-m yum -a"name=java-11-openjdk-devel.x86_64 state=
+p
+
+
+create a file
+write content in file
+change permissions to file
+create a directory
+create multiple files using anisible playbook
+delete a files
+
+file module
+lineinfile
+
+ansible all -i myinventory_file -l appservers -m file -a " dest:/opt/saturday.txt state:touch"
+
+ansible all -i myinventory_file -l appservers -m shell -a "ls -l /opt"
+
+ansible all -i myinventory_file -l appservers -m file -a "dest=/opt/saturday.txt owner=ec2-user group=ec2-user"
+
+ansible all -i myinventory_file -l appservers -m command -a "cat /opt/saturday.txt"
+
+ansible all -i myinventory_file -l appservers -m lineinfile -a 'dest=/opt/saturday.txt line="this is my second line"'
+
+ansible all -i myinventory_file -l appservers -m file -a" dest=/opt/Bhanu state=directory owner=ec2-user group=ec2-user"
