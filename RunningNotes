@@ -1058,7 +1058,7 @@ lineinfile
 
 ansible all -i myinventory_file -l appservers -m file -a " dest:/opt/saturday.txt state:touch"
 
-ansible all -i myinventory_file -l appservers -m shell -a "ls -l /opt"
+ansible all -i myinventory_file -l appservers -m shell -a "ls -l /home/ec2-user/"
 
 ansible all -i myinventory_file -l appservers -m file -a "dest=/opt/saturday.txt owner=ec2-user group=ec2-user"
 
@@ -1066,4 +1066,68 @@ ansible all -i myinventory_file -l appservers -m command -a "cat /opt/saturday.t
 
 ansible all -i myinventory_file -l appservers -m lineinfile -a 'dest=/opt/saturday.txt line="this is my second line"'
 
+
 ansible all -i myinventory_file -l appservers -m file -a" dest=/opt/Bhanu state=directory owner=ec2-user group=ec2-user"
+
+
+
+
+
+
+playbooks:
+..........
+playbooks are written in yaml
+
+---
+- hosts: all
+  tasks:
+    - name: create a file
+	  file:
+	    path: /home/ec2-user/tuesday.txt
+		state: touch
+    - name: create wed file
+	  file:
+	    path: /home/ec2-user/wednesday.txt
+		state: touch
+    - name: create thursday file
+	  file:
+	    path: /home/ec2-user/thursday.txt
+		state: touch
+	- name: create a directory
+      file:
+        path: /home/ec2-user/tuesday
+        state: directory
+        mode: 755		
+
+
+
+
+---
+- hosts: all
+  tasks:
+    - name: create files
+	  file: 
+	    path: /home/ec2-user/{{ item }}
+	    state: touch
+	  loop:
+        - january.txt
+        - feb.txt
+        - march.txt		
+
+
+---
+- hosts: appservers
+  become: true
+  tasks:
+    - name: install Apache
+	  yum:
+	    name: httpd
+		state: installed
+	- name: start httpd
+	  service:
+	    name: httpd
+		state: started
+	- name: copy html
+	  copy:
+	    src: /home/centos/index.html
+		dest: /var/www/html/
